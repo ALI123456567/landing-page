@@ -1,0 +1,103 @@
+<!-- ===== Footer ===== -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">درباره ما</a>
+      <a href="#">مستندات</a>
+      <a href="#">وبلاگ</a>
+      <a href="#">تماس</a>
+      <a href="#">حریم خصوصی</a>
+    </div>
+    <p class="footer-copy">© 2025 Cloudify. ساخته شده با ❤️</p>
+  </footer>
+
+  <script>
+    // ===== Dark/Light Mode =====
+    const themeBtn = document.getElementById('themeBtn');
+    const html = document.documentElement;
+
+    themeBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      if (current === 'light') {
+        html.removeAttribute('data-theme');
+        themeBtn.textContent = '🌙';
+      } else {
+        html.setAttribute('data-theme', 'light');
+        themeBtn.textContent = '☀️';
+      }
+    });
+
+    // ===== Testimonials Slider =====
+    const testimonials = [
+      {
+        text: 'Cloudify واقعاً سرعت استقرار ما را چند برابر کرد. تیم توسعه ما حالا می‌تواند روی محصول تمرکز کند، نه سرور.',
+        author: 'علی محمدی',
+        role: 'مدیر فنی، دیجی‌کالا'
+      },
+      {
+        text: 'بهترین تصمیمی که گرفتیم انتقال به Cloudify بود. هزینه‌ها ۴۰٪ کاهش پیدا کرد و عملکرد بهتر شد.',
+        author: 'سارا احمدی',
+        role: 'بنیان‌گذار، اسنپ‌فود'
+      },
+      {
+        text: 'پشتیبانی ۲۴/۷ و مستندات عالی، تجربه کار با Cloudify را بی‌نظیر کرده. قطعاً به دیگران پیشنهاد می‌کنم.',
+        author: 'رضا کریمی',
+        role: 'توسعه‌دهنده ارشد، آپارات'
+      }
+    ];
+
+    let currentIndex = 0;
+
+    const textEl = document.getElementById('testimonialText');
+    const authorEl = document.getElementById('testimonialAuthor');
+    const roleEl = document.getElementById('testimonialRole');
+    const dotsContainer = document.getElementById('sliderDots');
+
+    function showTestimonial(index) {
+      currentIndex = index;
+      const t = testimonials[index];
+      textEl.style.opacity = 0;
+      setTimeout(() => {
+        textEl.textContent = '"' + t.text + '"';
+        authorEl.textContent = t.author;
+        roleEl.textContent = t.role;
+        textEl.style.opacity = 1;
+      }, 200);
+
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    testimonials.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => showTestimonial(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    showTestimonial(0);
+
+    // Auto slide
+    setInterval(() => {
+      const next = (currentIndex + 1) % testimonials.length;
+      showTestimonial(next);
+    }, 5000);
+
+    // ===== Scroll Reveal =====
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    console.log('Cloudify Landing Page آماده است! 🚀');
+  </script>
+
+</body>
+</html>
